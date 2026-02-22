@@ -51,7 +51,7 @@ def root():
 @app.post("/records", status_code=status.HTTP_201_CREATED)
 def create_record(record: MaintenanceRecord):
     records[record.id] = record
-    return record
+    return record 
 
 @app.get("/records")
 def fetch_all_records():
@@ -109,4 +109,6 @@ def delete_record(record_id: UUID):
     del records[record_id]
 
 
+# Use this to access the FastAPI open frontend
+# http://127.0.0.1:8000/docs
 
