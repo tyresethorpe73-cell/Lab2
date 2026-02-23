@@ -42,7 +42,7 @@ class MaintenanceRecordUpdate(BaseModel):
     technician: str | None = None
     department: str | None = None
 
-
+#just running a check 
 @app.get("/")
 def root():
     return {"message": "Maintenace API is running"}
@@ -53,10 +53,12 @@ def create_record(record: MaintenanceRecord):
     records[record.id] = record
     return record 
 
+# Fetches all records in the list
 @app.get("/records")
 def fetch_all_records():
     return list(records.values())
 
+#Get by id
 @app.get("/records/{record_id}")
 def get_all_by_id(record_id: UUID):
     if record_id not in records:
@@ -76,7 +78,7 @@ def updating_records(record_id: UUID, record: MaintenanceRecord):
         records[record_id] = record
         return record
     
-    # If record does NOT exist the the put simply creates it
+    # If record does NOT exist then "put" simply creates it.
     record.id = record_id
     record.created_at = datetime.now()
     record.updated_at = datetime.now()
@@ -101,6 +103,7 @@ def patch_record(record_id: UUID, record_update: MaintenanceRecordUpdate):
     
     return existing_record
 
+# Deletes a record attached to specific ids.
 @app.delete("/records/{record_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_record(record_id: UUID):
     if record_id not in records:
@@ -109,6 +112,6 @@ def delete_record(record_id: UUID):
     del records[record_id]
 
 
-# Use this to access the FastAPI open frontend
+# Used this to access the FastAPI open frontend
 # http://127.0.0.1:8000/docs
 
